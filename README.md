@@ -10,7 +10,7 @@ Install the gem:
 
 Create an IronMQ client object:
 
-    @ironmq = IronCache::Client.new('token'=>'MYTOKEN', 'project_id'=>'MYPROJECTID')
+    @iron_cache = IronCache::Client.new(:token=>'MYTOKEN', :project_id=>'MYPROJECTID')
 
 You can get your `token` and `project_id` at http://www.iron.io .
 
@@ -18,39 +18,35 @@ You can get your `token` and `project_id` at http://www.iron.io .
 The Basics
 =========
 
-**Push** a message on the queue:
+**Put** an item in the cache:
 
-    msg = @ironmq.messages.post("hello world!")
+    msg = @iron_cache.items.put("mykey", "hello world!")
     p msg
 
-**Pop** a message off the queue:
+**Get** an item from the cache:
 
-    msg = @ironmq.messages.get()
+    msg = @iron_cache.items.get("mykey")
     p msg
 
-When you pop/get a message from the queue, it will NOT be deleted. It will eventually go back onto the queue after
-a timeout if you don't delete it (default timeout is 10 minutes).
+**Delete** an item from the cache:
 
-**Delete** a message from the queue:
-
-    res = msg.delete # or @ironmq.messages.delete(msg["id"])
+    res = msg.delete # or @iron_cache.items.delete("mykey")
     p res
 
-Delete a message from the queue when you're done with it.
 
 Queue Selection
 ===============
 
 One of the following:
 
-1. Pass `:queue_name=>'my_queue'` into IronMQ::Client.new
-1. `@client.queue_name = 'my_queue'`
-1. Pass `:queue_name=>'my_queue'` into any post(), get(), or delete()
+1. Pass `:cache_name=>'my_cache'` into IronCache::Client.new
+1. `@iron_cache.cache_name = 'my_cache'`
+1. Pass `:cache_name=>'my_cache'` into any post(), get(), or delete()
 
 Queue Information
 =================
 
-    queue = @client.queues.get(:name=>@client.queue_name)
-    puts "size: #{queue.size}"
+    cache = @iron_cache.queues.get(:name=>"my_cache")
+    puts "size: #{cache.size}"
 
  
