@@ -8,7 +8,7 @@ module IronCache
     end
 
     def path(key, options={})
-      path = "/projects/#{@client.project_id}/caches/#{options[:cache_name] || @client.cache_name}/objects/#{key}"
+      path = "/projects/#{@client.project_id}/caches/#{options[:cache_name] || @client.cache_name}/items/#{key}"
     end
 
     # options:
