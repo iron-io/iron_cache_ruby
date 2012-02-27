@@ -38,5 +38,22 @@ class IronCacheTests < TestBase
 
   end
 
+  def test_expiry
+    @client.cache_name = 'test_basics'
+    clear_queue
+    k = "key1"
+    v = "hello world!"
+    res = @client.items.put(k, v, :expires_in=>10)
+
+    res = @client.items.get(k)
+    p res
+    assert res.key == k
+
+    sleep 11
+    res = @client.items.get(k)
+    assert res.nil?
+
+  end
+
 end
 
