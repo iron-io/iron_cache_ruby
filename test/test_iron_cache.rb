@@ -1,6 +1,6 @@
 gem 'test-unit'
 require 'test/unit'
-require 'beanstalk-client'
+require 'memcache'
 require 'yaml'
 require_relative 'test_base'
 

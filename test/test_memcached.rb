@@ -1,6 +1,5 @@
 gem 'test-unit'
 require 'test/unit'
-require 'beanstalk-client'
 require 'yaml'
 require_relative 'test_base'
 
@@ -10,7 +9,7 @@ class IronCacheTests < TestBase
 
   end
 
-  def test_basics
+  def test_basics_memcached
     @client.cache_name = 'test_basics'
     clear_queue
 
@@ -38,7 +37,7 @@ class IronCacheTests < TestBase
 
   end
 
-  def test_expiry
+  def test_expiry_memcached
     @client.cache_name = 'test_basics'
     clear_queue
     k = "key1"

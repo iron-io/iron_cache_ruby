@@ -16,7 +16,7 @@ class TestBase < Test::Unit::TestCase
     @config = load_config
     puts "config=" + @config.inspect
     @client = IronCache::Client.new(@config['iron'])
-    @client.logger.level = Logger::DEBUG
+    @client.logger.logger.level = Logger::DEBUG
     @client.cache_name = 'iron_cache_ruby_tests'
 
   end
@@ -28,7 +28,7 @@ class TestBase < Test::Unit::TestCase
       @config = $abt_config
       return @config
     end
-    cf = File.expand_path(File.join("~", "Dropbox", "configs", "iron_cache_ruby", "test", "config.yml"))
+    cf = File.expand_path(File.join("~", "Dropbox", "configs", "iron_cache_ruby", "config.yml"))
     if File.exist?(cf)
       @config = YAML::load_file(cf)
       return @config
