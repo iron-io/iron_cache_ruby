@@ -1,3 +1,5 @@
+require 'uri'
+
 module IronCache
   class Caches
 
@@ -25,7 +27,7 @@ module IronCache
     # options:
     #  :name => can specify an alternative queue name
     def get(options={})
-      res, status = @client.get("#{path(options)}/#{options[:name]}")
+      res, status = @client.get("#{path(options)}/#{URI.escape options[:name]}")
       return Cache.new(self, res)
     end
 

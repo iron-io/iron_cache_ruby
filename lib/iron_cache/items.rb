@@ -1,3 +1,5 @@
+require 'uri'
+
 module IronCache
   class Items
 
@@ -8,7 +10,7 @@ module IronCache
     end
 
     def path(key, options={})
-      path = "projects/#{@client.project_id}/caches/#{options[:cache_name] || @client.cache_name}/items/#{key}"
+      path = "projects/#{@client.project_id}/caches/#{URI.escape(options[:cache_name] || @client.cache_name)}/items/#{URI.escape key}"
     end
 
     # options:
