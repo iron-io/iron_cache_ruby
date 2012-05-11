@@ -1,6 +1,5 @@
 gem 'test-unit'
 require 'test/unit'
-require 'memcache'
 require 'yaml'
 require_relative 'test_base'
 
@@ -51,7 +50,7 @@ class IronCacheTests < TestBase
 
     sleep 11
     res = @client.items.get(k)
-    assert res.nil?
+    assert res.nil?, "res is not nil, should be nil because it expired."
 
   end
 

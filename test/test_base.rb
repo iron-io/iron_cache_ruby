@@ -16,7 +16,7 @@ class TestBase < Test::Unit::TestCase
     @config = load_config
     puts "config=" + @config.inspect
     @client = IronCache::Client.new(@config['iron'])
-    @client.logger.logger.level = Logger::DEBUG
+    @client.logger.level = Logger::DEBUG
     @client.cache_name = 'iron_cache_ruby_tests'
 
   end

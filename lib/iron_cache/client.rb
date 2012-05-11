@@ -18,14 +18,14 @@ module IronCache
     def initialize(options={})
       super("cache", options)
 
-      @logger = IronCore::Logger
+      @logger = Logger.new(STDOUT)
 
       @cache_name = options[:cache_name] || options['cache_name'] || "default"
 
       load_from_hash(:scheme => 'https',
                      :host => AWS_US_EAST_HOST,
                      :port => 443,
-                     :api_version => 2,
+                     :api_version => 1,
                      :user_agent => 'iron_cache_ruby-' + IronCache::VERSION + ' (iron_core_ruby-' + IronCore.version + ')')
 
       if (not @token) || (not @project_id)

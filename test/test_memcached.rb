@@ -1,56 +1,34 @@
 gem 'test-unit'
 require 'test/unit'
 require 'yaml'
+require 'memcache'
 require_relative 'test_base'
 
-class IronCacheTests < TestBase
+class IronCacheMemcachedTests < TestBase
   def setup
     super
+
+    @memcache = MemCache.new "#{IronCache::Client::AWS_US_EAST_HOST}:11211"
 
   end
 
   def test_basics_memcached
-    @client.cache_name = 'test_basics'
-    clear_queue
+    puts "#{@client.token} #{@client.project_id}"
 
-    k = "key1"
-    v = "hello world!"
-    res = @client.items.put(k, v)
-    # another naming option we could try:
-    #res = @client.cache('test_basics').items.put("key1", "hello world!")
-    p res
-    assert res.msg
+    # auth format: "{token} {project ID} {cache name}"
+    @memcache.set("oauth", "#{@client.token} #{@client.project_id} gem_tests")
+    k = 'abc'
+    v = 'xyz'
+    @memcache.set(k, v)
 
-    res = @client.items.get(k)
-    p res
-    assert res["key"]
-    assert res.key
-    assert res.key == k
-    assert res.value == v
-
-    res = @client.items.delete(res.key)
-    p res
-    puts "shouldn't be any more"
-    res = @client.items.get(k)
-    p res
-    assert res.nil?
+    ret = @memcache.get(k)
+    p ret
+    assert !ret.nil?
+    assert ret == v
 
   end
 
   def test_expiry_memcached
-    @client.cache_name = 'test_basics'
-    clear_queue
-    k = "key1"
-    v = "hello world!"
-    res = @client.items.put(k, v, :expires_in=>10)
-
-    res = @client.items.get(k)
-    p res
-    assert res.key == k
-
-    sleep 11
-    res = @client.items.get(k)
-    assert res.nil?
 
   end
 
