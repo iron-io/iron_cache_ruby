@@ -15,8 +15,11 @@ module IronCache
 
     def list(options={})
       ret = []
-      res, status = @client.get("#{path(options)}", options)
-      res.each do |q|
+      res = @client.get("#{path(options)}", options)
+      p res
+      parsed = @client.parse_response(res, true)
+      p parsed
+      parsed.each do |q|
         #p q
         q = Cache.new(self, q)
         ret << q

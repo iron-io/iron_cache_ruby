@@ -37,6 +37,14 @@ class IronCacheTests < TestBase
 
   end
 
+  def test_caches
+    caches = @client.caches.list
+    p caches
+    assert caches
+    assert caches.is_a?(Array)
+
+  end
+
   def test_expiry
     @client.cache_name = 'test_basics'
     clear_queue
@@ -50,7 +58,7 @@ class IronCacheTests < TestBase
 
     sleep 11
     res = @client.items.get(k)
-    assert res.nil?, "res is not nil, should be nil because it expired."
+    assert res.nil?, "res is not nil, should be nil because it expired, but it's: #{res}"
 
   end
 
