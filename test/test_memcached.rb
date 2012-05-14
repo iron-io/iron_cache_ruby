@@ -15,8 +15,11 @@ class IronCacheMemcachedTests < TestBase
   def test_basics_memcached
     puts "#{@client.token} #{@client.project_id}"
 
+    #@memcache.get("abc")
+    #@memcache.set("abc", "123")
+
     # auth format: "{token} {project ID} {cache name}"
-    @memcache.set("oauth", "#{@client.token} #{@client.project_id} gem_tests")
+    @memcache.set("oauth", "#{@client.token} #{@client.project_id} gem_tests", 0, true)
     k = 'abc'
     v = 'xyz'
     @memcache.set(k, v)
