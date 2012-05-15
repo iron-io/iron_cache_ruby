@@ -22,6 +22,7 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     test-unit (2.4.8)
+    uber_config (0.0.1)
 
 PLATFORMS
   ruby
@@ -31,3 +32,4 @@ DEPENDENCIES
   memcache-client
   rake
   test-unit
+  uber_config

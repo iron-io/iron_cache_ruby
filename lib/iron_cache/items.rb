@@ -20,7 +20,7 @@ module IronCache
       begin
         res = @client.get(path(key, options), options)
         @client.logger.debug "GET response: " + res.inspect
-        json = @client.parse_response(res.body, true)
+        json = @client.parse_response(res, true)
         return Item.new(self, json)
       rescue IronCore::IronError => ex
         p ex
@@ -39,7 +39,7 @@ module IronCache
       to_send = options
       to_send[:body] = value
       res = @client.put(path(key, options), to_send)
-      json = @client.parse_response(res.body, true)
+      json = @client.parse_response(res, true)
       #return Message.new(self, res)
       return ResponseBase.new(json)
     end

@@ -42,6 +42,8 @@ class IronCacheTests < TestBase
     p caches
     assert caches
     assert caches.is_a?(Array)
+    assert caches.size > 0
+    assert caches[0].name
 
   end
 
