@@ -8,7 +8,7 @@ Install the gem:
 
     gem install iron_cache
 
-Create an IronMQ client object:
+Create an IronCache client object:
 
     @iron_cache = IronCache::Client.new(:token=>'MYTOKEN', :project_id=>'MYPROJECTID')
 
