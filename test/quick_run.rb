@@ -5,26 +5,28 @@ class QuickRun < TestBase
 
   def setup
     super
-    @client.queue_name = 'ironmq-gem-quick'
+    @client.cache_name = 'ironcache-gem-quick'
   end
 
   def test_basics
-    res = @client.items.post("hello world!")
-    assert res.id
+    key = "x"
+    value = "hello world!"
+    res = @client.items.put(key, value)
+    p res
     assert res.msg
+
+    res = @client.items.get(key)
+    assert res.value
+    assert res.value == value
     p res
 
-    res = @client.items.get()
-    assert res.id
-    assert res.body
+    res = @client.items.delete(key)
     p res
-
-    res = @client.items.delete(res["id"])
     assert res.msg
-    p res
 
-    res = @client.items.get()
+    res = @client.items.get(key)
     p res
+    assert res.nil?
 
   end
 

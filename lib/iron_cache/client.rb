@@ -48,18 +48,6 @@ module IronCache
       return Caches.new(self)
     end
 
-
-    def put(method, params={})
-      request_hash = {}
-      request_hash[:headers] = common_request_hash
-      request_hash[:body] = params.to_json
-
-      IronCore::Logger.debug 'IronCore', "PUT #{url + method} with params='#{request_hash.to_s}'"
-
-      @rest.put(url + method, request_hash)
-    end
-
-
   end
 
   class Error < StandardError
