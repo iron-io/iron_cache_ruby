@@ -64,5 +64,29 @@ class IronCacheTests < TestBase
 
   end
 
+  def test_incrementors
+    @client.cache_name = 'test_incrementors'
+    clear_queue
+    k = "incr1"
+    v = 1
+    res = @client.items.put(k, v)
+    p res
+
+    res = @client.items.get(k)
+    p res
+    assert res.key == k
+    assert res.value == v, "value #{res.value.inspect} does not equal v: #{v.inspect}"
+
+    incr_by = 10
+    @client.items.incr(k, incr_by)
+    res = @client.items.get(k)
+    assert res.value == (v + incr_by)
+
+    @client.items.incr(k, -6)
+    assert res.value == 5
+
+
+  end
+
 end
 
