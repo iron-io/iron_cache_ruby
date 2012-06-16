@@ -8,7 +8,7 @@ Install the gem:
 
     gem install iron_cache
 
-Create an IronMQ client object:
+Create an IronCache client object:
 
     @iron_cache = IronCache::Client.new(:token=>'MYTOKEN', :project_id=>'MYPROJECTID')
 
@@ -34,7 +34,7 @@ The Basics
     p res
 
 
-Queue Selection
+Cache Selection
 ===============
 
 One of the following:
@@ -43,7 +43,7 @@ One of the following:
 1. `@iron_cache.cache_name = 'my_cache'`
 1. Pass `:cache_name=>'my_cache'` into any post(), get(), or delete()
 
-Queue Information
+Cache Information
 =================
 
     cache = @iron_cache.queues.get(:name=>"my_cache")

@@ -22,7 +22,7 @@ module IronCache
         @client.logger.debug "GET response: " + res.inspect
         json = @client.parse_response(res, true)
         return Item.new(self, json)
-      rescue IronCore::IronError => ex
+      rescue IronCore::IronResponseError => ex
         p ex
         if ex.code == 404
           return nil
@@ -46,8 +46,10 @@ module IronCache
 
     def delete(key, options={})
       path2 = "#{self.path(key, options)}"
-      res, status = @client.delete(path2)
-      res
+      res = @client.delete(path2)
+      json = @client.parse_response(res, true)
+      #return Message.new(self, res)
+      return ResponseBase.new(json)
     end
 
   end
