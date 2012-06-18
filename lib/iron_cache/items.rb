@@ -10,7 +10,7 @@ module IronCache
     end
 
     def path(key, options={})
-      path = "projects/#{@client.project_id}/caches/#{URI.escape(options[:cache_name] || @client.cache_name)}/items/#{URI.escape key}"
+      path = "projects/#{@client.project_id}/caches/#{URI.escape(options[:cache_name] || @client.cache_name)}/items/#{URI.escape key}#{'/increment' if options[:increment] == true}"
     end
 
     # options:
@@ -41,6 +41,15 @@ module IronCache
       res = @client.put(path(key, options), to_send)
       json = @client.parse_response(res, true)
       #return Message.new(self, res)
+      return ResponseBase.new(json)
+    end
+    
+    # options:
+    #  :cache_name => can specify an alternative queue name    
+    def increment(key, amount=1, options={})
+      options.merge!(:increment => true)
+      res = @client.post(path(key, options), {:amount => amount})
+      json = @client.parse_response(res, true)
       return ResponseBase.new(json)
     end
 
