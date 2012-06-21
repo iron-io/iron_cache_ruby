@@ -1,0 +1,5 @@
+source 'http://rubygems.org'
+gem 'test-unit'
+gem 'concur'
+gem 'uber_config'
+gem 'iron_core'
