@@ -26,6 +26,7 @@ GEM
       bundler (> 1.0.0)
       rest
       rest-client
+    memcache (1.2.13)
     mime-types (1.18)
     multipart-post (1.1.5)
     rest (0.3.0)
@@ -42,5 +43,6 @@ PLATFORMS
 DEPENDENCIES
   concur
   iron_core
+  memcache
   test-unit
   uber_config
