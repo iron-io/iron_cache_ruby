@@ -1,0 +1,6 @@
+source 'http://rubygems.org'
+gem 'memcache'
+gem 'test-unit'
+gem 'concur'
+gem 'uber_config'
+gem 'iron_core'

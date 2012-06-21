@@ -8,6 +8,17 @@ class IronCacheTests < TestBase
     super
 
   end
+  def test_performance_put_message
+    @client.cache_name = 'test_basics'
+    res = @client.items.put("key", "value")
+  end
+  
+  def test_performance_put_100_messages
+    @client.cache_name = 'test_basics'
+    100.times do 
+      res = @client.items.put("key", "value")
+    end
+  end
 
   def test_basics
     @client.cache_name = 'test_basics'
