@@ -17,7 +17,7 @@ Getting Started
 The Basics
 =========
 
-**Get a cache object**
+**Get a Cache object**
 
 You can have as many caches as you want, each with their own unique set of items.
 
