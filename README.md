@@ -33,6 +33,9 @@ The Basics
     res = msg.delete # or @iron_cache.items.delete("mykey")
     p res
 
+**Increment** an item from the cache:
+    msg = @iron_cache.items.increment("mykey", amount=1)
+    p res
 
 Cache Selection
 ===============
