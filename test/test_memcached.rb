@@ -29,6 +29,12 @@ class IronCacheMemcachedTests < TestBase
     assert !ret.nil?
     assert ret == v
 
+    @memcache.delete(k)
+
+    ret = @memcache.get(k)
+    puts 'after delete: ' + ret.inspect
+    assert ret.nil?
+
   end
 
   def test_expiry_memcached
