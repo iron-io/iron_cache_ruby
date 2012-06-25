@@ -1,4 +1,4 @@
-IronMQ Ruby Client
+IronCache Ruby Client
 -------------
 
 Getting Started
@@ -8,11 +8,11 @@ Install the gem:
 
     gem install iron_cache
 
+Setup your Iron.io credentials: http://dev.iron.io/articles/configuration/
+
 Create an IronCache client object:
 
-    @iron_cache = IronCache::Client.new(:token=>'MYTOKEN', :project_id=>'MYPROJECTID')
-
-You can get your `token` and `project_id` at http://www.iron.io .
+    @iron_cache = IronCache::Client.new
 
 
 The Basics

@@ -9,16 +9,13 @@ module IronCache
 
     AWS_US_EAST_HOST = "cache-aws-us-east-1.iron.io"
 
-    def self.version
-
-    end
-
     attr_accessor :cache_name, :logger
 
     def initialize(options={})
       super("cache", options)
 
       @logger = Logger.new(STDOUT)
+      @logger.level = Logger::INFO
 
       @cache_name = options[:cache_name] || options['cache_name'] || "default"
 
@@ -30,7 +27,7 @@ module IronCache
                      :user_agent => 'iron_cache_ruby-' + IronCache::VERSION + ' (iron_core_ruby-' + IronCore.version + ')'})
 
       if (not @token) || (not @project_id)
-        IronCore::Logger.error 'IronWorkerNG', 'Both token and project_id must be specified'
+        IronCore::Logger.error 'IronCache', 'Both token and project_id must be specified'
         raise IronCore::IronError.new('Both token and project_id must be specified')
       end
 
