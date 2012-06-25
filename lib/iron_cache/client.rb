@@ -22,11 +22,12 @@ module IronCache
 
       @cache_name = options[:cache_name] || options['cache_name'] || "default"
 
-      load_from_hash(:scheme => 'https',
+      load_from_hash('defaults', {
+                     :scheme => 'https',
                      :host => AWS_US_EAST_HOST,
                      :port => 443,
                      :api_version => 1,
-                     :user_agent => 'iron_cache_ruby-' + IronCache::VERSION + ' (iron_core_ruby-' + IronCore.version + ')')
+                     :user_agent => 'iron_cache_ruby-' + IronCache::VERSION + ' (iron_core_ruby-' + IronCore.version + ')'})
 
       if (not @token) || (not @project_id)
         IronCore::Logger.error 'IronWorkerNG', 'Both token and project_id must be specified'
