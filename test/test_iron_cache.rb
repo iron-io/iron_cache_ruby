@@ -46,6 +46,43 @@ class IronCacheTests < TestBase
     p res
     assert res.nil?
 
+    # new style of referencing cache
+    cache = @client.cache("test_basics")
+    res = cache.put(k,v)
+    p res
+    assert res.msg
+
+    res = cache.get(k)
+    p res
+    assert res["key"]
+    assert res.key
+    assert res.key == k
+    assert res.value == v
+
+    res = cache.delete(k)
+    p res
+    puts "shouldn't be any more"
+    res = cache.get(k)
+    p res
+    assert res.nil?
+
+    # test delete by item
+    res = cache.put(k,v)
+    p res
+    assert res.msg
+
+    res = cache.get(k)
+    p res
+    assert res.value
+    res = res.delete
+    p res
+    puts "shouldn't be any more"
+    res = cache.get(k)
+    p res
+    assert res.nil?
+
+
+
   end
 
   def test_caches
@@ -55,6 +92,17 @@ class IronCacheTests < TestBase
     assert caches.is_a?(Array)
     assert caches.size > 0
     assert caches[0].name
+    #assert caches[0].size
+
+    cache = @client.caches.get(caches[0].name)
+    p cache
+    assert cache.name
+    #assert cache.size
+
+    cache = @client.cache(caches[0])
+    p cache
+    assert cache.name
+    #assert cache.size
 
   end
 
@@ -89,12 +137,34 @@ class IronCacheTests < TestBase
     assert res.value == v, "value #{res.value.inspect} does not equal v: #{v.inspect}"
 
     incr_by = 10
-    @client.items.incr(k, incr_by)
+    res = @client.items.increment(k, incr_by)
     res = @client.items.get(k)
     assert res.value == (v + incr_by)
 
-    @client.items.incr(k, -6)
+    res = @client.items.increment(k, -6)
     assert res.value == 5
+
+    res.delete
+
+    # new style
+    cache = @client.cache("test_incrementors")
+    res = cache.put(k, v)
+    p res
+
+    res = cache.get(k)
+    p res
+    assert res.key == k
+    assert res.value == v, "value #{res.value.inspect} does not equal v: #{v.inspect}"
+
+    incr_by = 10
+    res = cache.increment(k, incr_by)
+    res = cache.get(k)
+    assert res.value == (v + incr_by)
+
+    res = cache.increment(k, -6)
+    assert res.value == 5
+
+    res.delete
 
 
   end

@@ -11,17 +11,21 @@ module IronCache
 
     def path(options={})
       path = "projects/#{@client.project_id}/caches"
+      if options[:name]
+        path << "/#{URI.escape(options[:name])}"
+      end
+      path
     end
 
     def list(options={})
       ret = []
       res = @client.get("#{path(options)}", options)
-      p res
+      @client.logger.debug res.inspect
       parsed = @client.parse_response(res, true)
-      p parsed
+      @client.logger.debug parsed.inspect
       parsed.each do |q|
-        #p q
-        q = Cache.new(self, q)
+        @client.logger.debug "cache: " + q.inspect
+        q = Cache.new(@client, q)
         ret << q
       end
       ret
@@ -30,8 +34,12 @@ module IronCache
     # options:
     #  :name => can specify an alternative queue name
     def get(options={})
-      res, status = @client.get("#{path(options)}/#{URI.escape options[:name]}")
-      return Cache.new(self, res)
+      if options.is_a?(String)
+        options = {:name=>options}
+      end
+      options[:name] ||= @client.cache_name
+      res = @client.parse_response(@client.get("#{path(options)}"))
+      Cache.new(@client, res)
     end
 
 
@@ -39,8 +47,8 @@ module IronCache
 
   class Cache
 
-    def initialize(queues, res)
-      @queues = queues
+    def initialize(client, res)
+      @client = client
       @data = res
     end
 
@@ -60,25 +68,39 @@ module IronCache
       raw["name"]
     end
 
-    def size
-      return raw["size"] if raw["size"]
-      return @size if @size
-      q = @queues.get(:name=>name)
-      @size = q.size
-      @size
+    # Used if lazy loading
+    def load_cache
+      q = @client.caches.get(:name=>name)
+      @client.logger.debug "GOT Q: " + q.inspect
+      @data = q.raw
+      q
     end
 
-    def total_messages
-      return raw["total_messages"] if raw["total_messages"]
-      return @total_messages if @total_messages
-      q = @queues.get(:name=>name)
-      @total_messages = q.total_messages
-      @total_messages
+    # not supported in API yet
+    #def size
+    #  return raw["size"] if raw["size"]
+    #  return @size if @size
+    #  q = load_cache()
+    #  @size = q.size
+    #  @size
+    #end
+
+    def put(k, v, options={})
+      @client.items.put(k, v, options.merge(:cache_name=>name))
     end
 
-    # def delete
-    # @messages.delete(self.id)
-    # end
+    def get(k, options={})
+      @client.items.get(k, options.merge(:cache_name=>name))
+    end
+
+    def delete(k, options={})
+      @client.items.delete(k, options.merge(:cache_name=>name))
+    end
+
+    def increment(k, amount=1, options={})
+      @client.items.increment(k, amount, options.merge(:cache_name=>name))
+    end
+
   end
 
 end

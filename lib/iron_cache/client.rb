@@ -38,8 +38,8 @@ module IronCache
       return Items.new(self)
     end
 
-    def cache
-
+    def cache(name)
+      return Cache.new(self, {"name"=>name})
     end
 
     def caches

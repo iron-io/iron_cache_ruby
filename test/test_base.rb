@@ -12,12 +12,12 @@ end
 
 class TestBase < Test::Unit::TestCase
   def setup
-    puts 'setup yoooo'
+    puts 'setup'
     # check multiple config locations
     @config = UberConfig.load
     puts "config=" + @config.inspect
     @client = IronCache::Client.new(@config['iron'])
-    #@client.logger.level = Logger::DEBUG
+    @client.logger.level = Logger::DEBUG
     @client.cache_name = 'iron_cache_ruby_tests'
 
   end

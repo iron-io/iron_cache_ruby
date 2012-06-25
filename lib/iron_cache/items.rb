@@ -23,7 +23,7 @@ module IronCache
         json = @client.parse_response(res, true)
         return Item.new(self, json)
       rescue IronCore::IronResponseError => ex
-        p ex
+        @client.logger.debug ex.inspect
         if ex.code == 404
           return nil
         end
@@ -47,10 +47,12 @@ module IronCache
     # options:
     #  :cache_name => can specify an alternative queue name    
     def increment(key, amount=1, options={})
-      options.merge!(:increment => true)
+      options = options.merge(:increment => true)
       res = @client.post(path(key, options), {:amount => amount})
-      json = @client.parse_response(res, true)
-      return ResponseBase.new(json)
+      hash = @client.parse_response(res, true)
+      @client.logger.debug "increment response: " + hash.inspect
+      hash["key"] ||= key
+      return Item.new(self, hash)
     end
 
     def delete(key, options={})
@@ -76,9 +78,9 @@ module IronCache
       raw[key]
     end
 
-    def id
-      raw["id"]
-    end
+    #def id
+    #  raw["id"]
+    #end
 
     def msg
       raw["msg"]
@@ -102,7 +104,7 @@ module IronCache
     end
 
     def delete
-      @messages.delete(self.id)
+      @messages.delete(self.key)
     end
   end
 
