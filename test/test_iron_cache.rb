@@ -10,14 +10,14 @@ class IronCacheTests < TestBase
   end
   def test_performance_put_message
     @client.cache_name = 'test_basics'
-    assert_performance 0.02 do
+    assert_performance 0.01 do
       @client.items.put("key", "value")
     end
   end
   
   def test_performance_put_100_messages
     @client.cache_name = 'test_basics'
-    assert_performance 2 do
+    assert_performance 0.5 do
       100.times do
         res = @client.items.put("key", "value")
         puts "putting message #{res.inspect}"
