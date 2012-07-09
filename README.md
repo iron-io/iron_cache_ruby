@@ -27,13 +27,13 @@ Now you can use it:
 
 **Put** an item in the cache:
 
-    msg = @cache.put("mykey", "hello world!")
-    p msg
+    item = @cache.put("mykey", "hello world!")
+    p item
 
 **Get** an item from the cache:
 
-    msg = @cache.get("mykey")
-    p msg
+    item = @cache.get("mykey")
+    p item.value
 
 **Delete** an item from the cache:
 
