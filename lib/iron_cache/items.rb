@@ -22,7 +22,7 @@ module IronCache
         @client.logger.debug "GET response: " + res.inspect
         json = @client.parse_response(res, true)
         return Item.new(self, json)
-      rescue IronCore::IronResponseError => ex
+      rescue IronCore::ResponseError => ex
         @client.logger.debug ex.inspect
         if ex.code == 404
           return nil
