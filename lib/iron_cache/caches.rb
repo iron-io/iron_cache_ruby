@@ -76,14 +76,12 @@ module IronCache
       q
     end
 
-    # not supported in API yet
-    #def size
-    #  return raw["size"] if raw["size"]
-    #  return @size if @size
-    #  q = load_cache()
-    #  @size = q.size
-    #  @size
-    #end
+    def size
+      return raw["size"] if raw["size"]
+      return @size if @size
+      q = load_cache()
+      @size = q.size
+    end
 
     def put(k, v, options={})
       @client.items.put(k, v, options.merge(:cache_name=>name))

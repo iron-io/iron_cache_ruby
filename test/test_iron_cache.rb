@@ -6,15 +6,15 @@ require_relative 'test_base'
 class IronCacheTests < TestBase
   def setup
     super
-
   end
+
   def test_performance_put_message
     @client.cache_name = 'test_basics'
     assert_performance 0.02 do
       @client.items.put("key", "value")
     end
   end
-  
+
   def test_performance_put_100_messages
     @client.cache_name = 'test_basics'
     assert_performance 2 do
@@ -53,7 +53,7 @@ class IronCacheTests < TestBase
 
     # new style of referencing cache
     cache = @client.cache("test_basics")
-    res = cache.put(k,v)
+    res = cache.put(k, v)
     p res
     assert res.msg
 
@@ -72,7 +72,7 @@ class IronCacheTests < TestBase
     assert res.nil?
 
     # test delete by item
-    res = cache.put(k,v)
+    res = cache.put(k, v)
     p res
     assert res.msg
 
@@ -85,7 +85,6 @@ class IronCacheTests < TestBase
     res = cache.get(k)
     p res
     assert res.nil?
-
 
 
   end
@@ -116,7 +115,7 @@ class IronCacheTests < TestBase
     clear_queue
     k = "key1"
     v = "hello world!"
-    res = @client.items.put(k, v, :expires_in=>10)
+    res = @client.items.put(k, v, :expires_in => 10)
 
     res = @client.items.get(k)
     p res
@@ -170,9 +169,19 @@ class IronCacheTests < TestBase
     assert res.value == 5
 
     res.delete
-
-
   end
+
+  def test_size
+    cache = @client.cache("test_size")
+    num_items = 100
+
+    num_items.times do |i|
+      res = @client.items.put("key-#{i}", "value")
+    end
+
+    assert cache.size == num_items
+  end
+
 
 end
 
