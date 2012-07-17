@@ -17,7 +17,7 @@ class IronCacheTests < TestBase
 
   def test_performance_put_100_messages
     @client.cache_name = 'test_basics'
-    assert_performance 2 do
+    assert_performance 10 do
       100.times do
         res = @client.items.put("key", "value")
         puts "putting message #{res.inspect}"
@@ -172,13 +172,14 @@ class IronCacheTests < TestBase
   end
 
   def test_size
-    cache = @client.caches.get(name: "test_size")
+    cache = @client.cache("test_size")
     num_items = 100
 
     num_items.times do |i|
-      res = @client.items.put("key-#{i}", "value")
+      res = cache.put("key-#{i}", "value")
     end
 
+    puts "cache.size: #{cache.size}"
     assert cache.size == num_items
   end
 

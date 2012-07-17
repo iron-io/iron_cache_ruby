@@ -19,10 +19,10 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "iron_core", ">= 0.2.0"
 
   gem.add_development_dependency "test-unit"
+  gem.add_development_dependency "minitest"
   gem.add_development_dependency "rake"
   gem.add_development_dependency "memcache-client"
   gem.add_development_dependency "uber_config"
-  gem.add_development_dependency "typhoeus"
 
 
 end
