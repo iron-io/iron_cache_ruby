@@ -8,7 +8,7 @@ class IronCacheMemcachedTests < TestBase
   def setup
     super
 
-    @memcache = MemCache.new "#{IronCache::Client::AWS_US_EAST_HOST}:11211"
+    @memcache = MemCache.new "#{@client.host}:11211"
 
   end
 
