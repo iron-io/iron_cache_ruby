@@ -27,8 +27,7 @@ Now you can use it:
 
 **Put** an item in the cache:
 
-    item = @cache.put("mykey", "hello world!")
-    p item
+    @cache.put("mykey", "hello world!")
 
 **Get** an item from the cache:
 
