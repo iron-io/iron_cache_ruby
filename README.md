@@ -4,13 +4,13 @@ IronCache Ruby Client
 Getting Started
 ==============
 
-1. Install the gem:
+1\. Install the gem:
 
     gem install iron_cache
 
-2. Setup your Iron.io credentials: http://dev.iron.io/articles/configuration/
+2\. Setup your Iron.io credentials: http://dev.iron.io/articles/configuration/
 
-3. Create an IronCache client object:
+3\. Create an IronCache client object:
 
     @client = IronCache::Client.new
 
