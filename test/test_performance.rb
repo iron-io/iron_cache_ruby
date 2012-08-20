@@ -10,7 +10,7 @@ class TestPerformance < TestBase
 
   def test_performance_put_100_messages
     @client.cache_name = 'test_basics'
-    assert_performance 6 do
+    assert_performance 10 do
       100.times do |i|
         res = @client.items.put("key", "value")
         puts "putting message #{res.inspect}"
