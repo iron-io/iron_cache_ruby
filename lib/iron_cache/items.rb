@@ -10,7 +10,7 @@ module IronCache
     end
 
     def path(key, options={})
-      path = "projects/#{@client.project_id}/caches/#{URI.escape(options[:cache_name] || @client.cache_name)}/items/#{URI.escape key}#{'/increment' if options[:increment] == true}"
+      path = "projects/#{@client.project_id}/caches/#{CGI::escape(options[:cache_name] || @client.cache_name)}/items/#{CGI::escape(key)}#{'/increment' if options[:increment] == true}"
     end
 
     # options:
