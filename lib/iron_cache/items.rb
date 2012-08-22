@@ -29,7 +29,10 @@ module IronCache
         end
         raise ex
       end
+    end
 
+    def url(key, options={})
+      @client.url(path(key, options))
     end
 
     # options:
@@ -104,7 +107,7 @@ module IronCache
     end
 
     def delete
-      @messages.delete(self.key)
+      @messages.delete(self.key, cache_name: raw['cache'])
     end
   end
 

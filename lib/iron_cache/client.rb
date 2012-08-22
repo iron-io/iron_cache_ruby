@@ -35,7 +35,7 @@ module IronCache
       super.merge({'Authorization' => "OAuth #{@token}"})
     end
 
-    def url
+    def base_url
       super + @api_version.to_s + '/'
     end
 

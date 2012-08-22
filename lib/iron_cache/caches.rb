@@ -91,6 +91,11 @@ module IronCache
       @client.items.get(k, options.merge(:cache_name=>name))
     end
 
+    # Returns the url to this item. It does not actually get the item
+    def url(k, options={})
+      @client.items.url(k, options.merge(:cache_name=>name))
+    end
+
     def delete(k, options={})
       @client.items.delete(k, options.merge(:cache_name=>name))
     end

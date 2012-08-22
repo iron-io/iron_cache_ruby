@@ -2,13 +2,13 @@ PATH
   remote: .
   specs:
     iron_cache (1.1.2)
-      iron_core (>= 0.2.0)
+      iron_core (>= 0.4.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    iron_core (0.3.3)
-      rest (>= 2.0.0)
+    iron_core (0.4.1)
+      rest (>= 2.0.2)
     memcache-client (1.8.5)
     mime-types (1.19)
     minitest (3.3.0)

@@ -70,6 +70,16 @@ class IronCacheTests < TestBase
     assert res.nil?
 
 
+    # different cache names
+    c = @client.cache("new_style")
+    c.put(k, v)
+    item = c.get(k)
+    assert_equal v, item.value
+    item.delete
+    item = c.get(k)
+    assert_nil item
+
+
   end
 
   def test_caches
