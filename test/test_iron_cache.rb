@@ -24,15 +24,15 @@ class IronCacheTests < TestBase
     p res
     assert res["key"]
     assert res.key
-    assert res.key == k
-    assert res.value == v
+    assert_equal k, res.key
+    assert_equal v, res.value
 
     res = @client.items.delete(res.key)
     p res
     puts "shouldn't be any more"
     res = @client.items.get(k)
     p res
-    assert res.nil?
+    assert_nil res
 
     # new style of referencing cache
     cache = @client.cache("test_basics")
@@ -44,15 +44,15 @@ class IronCacheTests < TestBase
     p res
     assert res["key"]
     assert res.key
-    assert res.key == k
-    assert res.value == v
+    assert_equal k, res.key
+    assert_equal v, res.value
 
     res = cache.delete(k)
     p res
     puts "shouldn't be any more"
     res = cache.get(k)
     p res
-    assert res.nil?
+    assert_nil res
 
     # test delete by item
     res = cache.put(k, v)
@@ -67,7 +67,7 @@ class IronCacheTests < TestBase
     puts "shouldn't be any more"
     res = cache.get(k)
     p res
-    assert res.nil?
+    assert_nil res
 
 
     # different cache names
@@ -112,11 +112,11 @@ class IronCacheTests < TestBase
 
     res = @client.items.get(k)
     p res
-    assert res.key == k
+    assert_equal k, res.key
 
     sleep 11
     res = @client.items.get(k)
-    assert res.nil?, "res is not nil, should be nil because it expired, but it's: #{res}"
+    assert_nil res
 
   end
 
@@ -130,16 +130,16 @@ class IronCacheTests < TestBase
 
     res = @client.items.get(k)
     p res
-    assert res.key == k
-    assert res.value == v, "value #{res.value.inspect} does not equal v: #{v.inspect}"
+    assert_equal k, res.key
+    assert_equal v, res.value
 
     incr_by = 10
     res = @client.items.increment(k, incr_by)
     res = @client.items.get(k)
-    assert res.value == (v + incr_by)
+    assert_equal v + incr_by, res.value
 
     res = @client.items.increment(k, -6)
-    assert res.value == 5
+    assert_equal 5, res.value
 
     res.delete
 
@@ -150,16 +150,16 @@ class IronCacheTests < TestBase
 
     res = cache.get(k)
     p res
-    assert res.key == k
-    assert res.value == v, "value #{res.value.inspect} does not equal v: #{v.inspect}"
+    assert_equal k, res.key
+    assert_equal v, res.value
 
     incr_by = 10
     res = cache.increment(k, incr_by)
     res = cache.get(k)
-    assert res.value == (v + incr_by)
+    assert_equal v + incr_by, res.value
 
     res = cache.increment(k, -6)
-    assert res.value == 5
+    assert_equal 5, res.value
 
     res.delete
   end
@@ -173,7 +173,7 @@ class IronCacheTests < TestBase
     end
 
     puts "cache.size: #{cache.size}"
-    assert cache.size == num_items
+    assert_equal num_items, cache.size
   end
 
 
