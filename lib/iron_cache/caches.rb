@@ -76,6 +76,10 @@ module IronCache
       q
     end
 
+    def reload
+      load_cache
+    end
+
     def size
       return raw["size"] if raw["size"]
       return @size if @size
