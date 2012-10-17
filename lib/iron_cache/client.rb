@@ -17,7 +17,7 @@ module IronCache
         :host => IronCache::Client::AWS_US_EAST_HOST,
         :port => 443,
         :api_version => 1,
-        :user_agent => 'iron_mq_ruby-' + IronCache::VERSION + ' (iron_core_ruby-' + IronCore.version + ')',
+        :user_agent => 'iron_cache_ruby-' + IronCache::VERSION + ' (iron_core_ruby-' + IronCore.version + ')',
         :cache_name => 'default'
       }
 
