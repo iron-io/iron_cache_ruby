@@ -31,7 +31,8 @@ module ActiveSupport
         item = nil
 
         with_namespace(key, options) do |cache, k|
-          item = cache.get(k).value
+          item = cache.get(k)
+          item = item.value unless item.nil?
         end
 
         deserialize_entry(item)
