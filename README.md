@@ -50,3 +50,13 @@ Cache Information
     cache = @iron_cache.cache("my_cache")
     puts "name: #{cache.name}"
 
+Using As Rails Store
+====================
+
+You can use IronCache as any other rails store. Put iron.json into your project's config dir, add iron_cache to Gemfile and you are ready to go.
+
+    config.cache_store = :iron_cache_store
+
+Alternatively, you can supply project_id and token in code.
+
+    config.cache_store = :iron_cache_store, :project_id => 'XXX', :token => 'YYY'
