@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iron_cache (1.2.1)
+    iron_cache (1.2.3)
       iron_core (>= 0.4.2)
 
 GEM
@@ -12,7 +12,7 @@ GEM
     memcache-client (1.8.5)
     mime-types (1.19)
     minitest (4.1.0)
-    net-http-persistent (2.7)
+    net-http-persistent (2.8)
     rake (0.9.2.2)
     rest (2.0.4)
       net-http-persistent
