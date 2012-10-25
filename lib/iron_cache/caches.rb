@@ -38,8 +38,15 @@ module IronCache
         options = {:name=>options}
       end
       options[:name] ||= @client.cache_name
-      res = @client.parse_response(@client.get("#{path(options)}"))
+      res = @client.parse_response(@client.get(path(options)))
       Cache.new(@client, res)
+    end
+
+    def clear(options={})
+      res = @client.post(path(options) + "/clear")
+      json = @client.parse_response(res, true)
+      #return Message.new(self, res)
+      return ResponseBase.new(json)
     end
 
 
@@ -106,6 +113,10 @@ module IronCache
 
     def increment(k, amount=1, options={})
       @client.items.increment(k, amount, options.merge(:cache_name=>name))
+    end
+
+    def clear(options={})
+      @client.caches.clear(options.merge(:name=>name))
     end
 
   end
