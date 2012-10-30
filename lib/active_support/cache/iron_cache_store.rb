@@ -76,6 +76,7 @@ module ActiveSupport
 
       def deserialize_entry(raw_value)
         if raw_value
+          raw_value = ::Base64.decode64(raw_value) rescue raw_value
           entry = Marshal.load(raw_value) rescue raw_value
           entry.is_a?(ActiveSupport::Cache::Entry) ? entry : ActiveSupport::Cache::Entry.new(entry)
         else
@@ -93,7 +94,7 @@ module ActiveSupport
             value = entry.to_s
           end
         else
-          value = Marshal.dump(entry)
+          value = ::Base64.encode64 Marshal.dump(entry)
         end
       end
     end
