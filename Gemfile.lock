@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iron_cache (1.2.3)
+    iron_cache (1.3.0)
       iron_core (>= 0.4.2)
 
 GEM
