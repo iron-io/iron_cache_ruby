@@ -193,7 +193,7 @@ class IronCacheTests < TestBase
 
 
   def test_clear
-    cache = @client.cache("test_clear_2")
+    cache = @client.cache("test_clear_3")
     num_items = 50
 
     num_items.times do |i|
@@ -206,6 +206,7 @@ class IronCacheTests < TestBase
     assert_equal num_items, cache.size
 
     p cache.clear
+    sleep 2
     assert_nil cache.get(tkey)
     assert_equal 0, cache.reload.size
   end
