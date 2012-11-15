@@ -40,7 +40,7 @@ module IronCache
     #  :expires_in => After this delay in seconds, message will be automatically removed from the cache.
     def put(key, value, options={})
       to_send = options
-      to_send[:body] = value
+      to_send[:value] = value
       res = @client.put(path(key, options), to_send)
       json = @client.parse_response(res, true)
       #return Message.new(self, res)
