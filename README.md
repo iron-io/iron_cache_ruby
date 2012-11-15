@@ -44,6 +44,12 @@ Now you can use it:
     msg = @cache.increment("mycounter", 1)
     p res
 
+For all the options for each of these methods, please see our [API docs](http://dev.iron.io/cache/reference/api/). Every option can be passed in
+via an optional hash in the above methods, eg:
+
+    @cache.put("mykey", "hello world!", :expires_in=>3600)
+
+
 Cache Information
 =================
 
