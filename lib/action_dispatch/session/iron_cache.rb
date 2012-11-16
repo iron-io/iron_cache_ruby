@@ -26,7 +26,7 @@ module ActionDispatch
           item = item.value unless item.nil?
         end
 
-        session_data = deserialize_entry(item).value rescue {}
+        session_data = deserialize_entry(item) rescue {}
 
         [session_id, session_data]
       end
@@ -70,8 +70,7 @@ module ActionDispatch
       def deserialize_entry(raw_value)
         if raw_value
           raw_value = ::Base64.decode64(raw_value) rescue raw_value
-          entry = Marshal.load(raw_value) rescue raw_value
-          entry.is_a?(ActiveSupport::Cache::Entry) ? entry : ActiveSupport::Cache::Entry.new(entry)
+          Marshal.load(raw_value) rescue raw_value
         else
           nil
         end
