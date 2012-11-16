@@ -4,13 +4,13 @@ require 'action_dispatch/middleware/session/abstract_store'
 
 module ActionDispatch
   module Session
-    class IronCacheStore < ActionDispatch::Session::AbstractStore
+    class IronCache < ActionDispatch::Session::AbstractStore
 
       def initialize(app, options = {})
         @options = options
         super
 
-        @client = IronCache::Client.new(options)
+        @client = ::IronCache::Client.new(options)
       end
 
       def options

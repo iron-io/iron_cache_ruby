@@ -82,7 +82,7 @@ AppName::Application.config.session_store :iron_cache_store
 Alternatively, you can supply project_id and token in code.
 
 ```ruby
-AppName::Application.config.session_store :iron_cache_store,
+AppName::Application.config.session_store :iron_cache,
                                           project_id: 'XXX',
                                           token: 'YYY',
                                           namespace: 'other-cache-name',
