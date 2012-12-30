@@ -8,7 +8,7 @@ Getting Started
 
     gem install iron_cache
 
-2\. Setup your Iron.io credentials: http://dev.iron.io/articles/configuration/
+2\. Setup your Iron.io credentials: http://dev.iron.io/cache/reference/configuration/
 
 3\. Create an IronCache client object:
 
