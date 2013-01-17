@@ -1,5 +1,5 @@
 require 'rest'
-require_relative "iron_cache/version"
-require_relative 'iron_cache/caches'
-require_relative 'iron_cache/items'
-require_relative 'iron_cache/client'
+require "iron_cache/version"
+require 'iron_cache/caches'
+require 'iron_cache/items'
+require 'iron_cache/client'
