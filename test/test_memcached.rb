@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'yaml'
 require 'memcache'
-require 'test_base'
+require File.expand_path('test_base.rb', File.dirname(__FILE__))
 
 class IronCacheMemcachedTests < TestBase
   def setup
