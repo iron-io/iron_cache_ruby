@@ -107,7 +107,7 @@ module IronCache
     end
 
     def delete
-      @messages.delete(self.key, cache_name: raw['cache'])
+      @messages.delete(self.key, :cache_name => raw['cache'])
     end
   end
 

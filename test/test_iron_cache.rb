@@ -1,7 +1,6 @@
-gem 'test-unit'
 require 'test/unit'
 require 'yaml'
-require_relative 'test_base'
+require 'test_base'
 
 class IronCacheTests < TestBase
   def setup

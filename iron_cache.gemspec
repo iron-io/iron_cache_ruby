@@ -15,8 +15,8 @@ Gem::Specification.new do |gem|
   gem.version       = IronCache::VERSION
 
   gem.required_rubygems_version = ">= 1.3.6"
-  gem.required_ruby_version = Gem::Requirement.new(">= 1.9")
-  gem.add_runtime_dependency "iron_core", ">= 0.4.2"
+  gem.required_ruby_version = Gem::Requirement.new(">= 1.8")
+  gem.add_runtime_dependency "iron_core", ">= 0.5.1"
 
   gem.add_development_dependency "test-unit"
   gem.add_development_dependency "minitest"
