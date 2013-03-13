@@ -30,15 +30,12 @@ class TestBase < Test::Unit::TestCase
 
   end
 
-  def clear_queue(queue_name=nil)
-    #queue_name ||= @client.cache_name
-    #puts "clearing queue #{queue_name}"
-    #while res = @client.messages.get(:cache_name=>queue_name)
-    #  p res
-    #  puts res.body.to_s
-    #  res.delete
-    #end
-    #puts 'cleared.'
+  def clear_cache(cache_name=nil)
+    cache_name ||= @client.cache_name
+    puts "clearing cache #{cache_name}"
+    cache = @client.cache(cache_name)
+    cache.clear
+    puts 'cleared.'
   end
 
   def assert_performance(time)
