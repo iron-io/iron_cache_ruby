@@ -9,7 +9,7 @@ class IronCacheTests < TestBase
 
   def test_basics
     @client.cache_name = 'test_basics'
-    clear_queue
+    clear_cache
 
     k = "key1"
     v = "hello world!"
@@ -104,7 +104,7 @@ class IronCacheTests < TestBase
 
   def test_expiry
     @client.cache_name = 'test_basics'
-    clear_queue
+    clear_cache
     k = "key1"
     v = "hello world!"
     res = @client.items.put(k, v, :expires_in => 10)
@@ -121,7 +121,7 @@ class IronCacheTests < TestBase
 
   def test_incrementors
     @client.cache_name = 'test_incrementors'
-    clear_queue
+    clear_cache
     k = "incr1"
     v = 1
     res = @client.items.put(k, v)
@@ -178,7 +178,7 @@ class IronCacheTests < TestBase
 
   def test_keys
     @client.cache_name = 'test_keys'
-    clear_queue
+    clear_cache
 
     k = "word_count_[EBook"
     v = "hello world!"
@@ -193,6 +193,8 @@ class IronCacheTests < TestBase
 
   def test_clear
     cache = @client.cache("test_clear_3")
+    cache.clear
+
     num_items = 50
 
     num_items.times do |i|
