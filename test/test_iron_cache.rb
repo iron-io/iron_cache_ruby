@@ -203,6 +203,8 @@ class IronCacheTests < TestBase
 
     tkey = "key-0"
     assert_equal "value", cache.get(tkey).value
+
+    cache.reload
     puts "cache.size: #{cache.size}"
     assert_equal num_items, cache.size
 
