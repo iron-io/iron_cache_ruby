@@ -195,6 +195,10 @@ class IronCacheTests < TestBase
     cache = @client.cache("test_clear_3")
     cache.clear
 
+    # workaround to make ironcache room usable
+    # even if counters goes out of sync
+    old_size = cache.reload.size
+
     num_items = 50
 
     num_items.times do |i|
@@ -211,7 +215,7 @@ class IronCacheTests < TestBase
     p cache.clear
     sleep 2
     assert_nil cache.get(tkey)
-    assert_equal 0, cache.reload.size
+    assert_equal old_size, cache.reload.size
   end
 
 end
