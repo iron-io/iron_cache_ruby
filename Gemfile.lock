@@ -11,7 +11,7 @@ GEM
       rest (>= 2.2.0)
     memcache-client (1.8.5)
     mime-types (1.21)
-    minitest (4.7.0)
+    minitest (4.6.2)
     net-http-persistent (2.8)
     rake (10.0.3)
     rest (2.2.0)
