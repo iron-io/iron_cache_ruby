@@ -214,5 +214,26 @@ class IronCacheTests < TestBase
     assert_equal 0, cache.reload.size
   end
 
+  def test_add
+    cache = @client.cache("test_add")
+    cache.clear rescue ""
+    udq_expires = 60 # 1 min
+    k = 'mykey'
+    r = cache.put(k, 0, :expires_in => udq_expires)
+    r = cache.increment(k)
+    p r
+    assert_equal 1, r.value
+    cache.put(k, 0, :add => true, :expires_in => udq_expires)
+    p r
+    r = cache.increment(k)
+    p r
+    assert_equal 2, r.value
+    cache.put(k, 0, :add => true, :expires_in => udq_expires)
+    r = cache.increment(k)
+    p r
+    assert_equal 3, r.value, "value is #{r.value}, expected 3"
+  end
+
+
 end
 
