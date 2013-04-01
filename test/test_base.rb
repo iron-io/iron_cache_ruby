@@ -34,17 +34,23 @@ class TestBase < Test::Unit::TestCase
     cache_name ||= @client.cache_name
     puts "clearing cache #{cache_name}"
     cache = @client.cache(cache_name)
-    cache.clear
-    puts 'cleared.'
+    begin
+      cache.clear
+      puts 'cleared.'
+    rescue Rest::HttpError => ex
+      unless ex.code == 404
+        raise ex
+      end
+    end
+
   end
 
   def assert_performance(time)
     start_time = Time.now
     yield
-    execution_time =  Time.now - start_time
+    execution_time = Time.now - start_time
     assert execution_time < time, "Execution time too big #{execution_time.round(2)}, should be #{time}"
   end
-
 
 
 end

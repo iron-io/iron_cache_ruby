@@ -193,7 +193,7 @@ class IronCacheTests < TestBase
 
   def test_clear
     cache = @client.cache("test_clear_3")
-    cache.clear
+    clear_cache(cache.name)
 
     num_items = 50
 
