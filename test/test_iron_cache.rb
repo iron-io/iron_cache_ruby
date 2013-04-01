@@ -223,12 +223,16 @@ class IronCacheTests < TestBase
     r = cache.increment(k)
     p r
     assert_equal 1, r.value
-    cache.put(k, 0, :add => true, :expires_in => udq_expires)
+    assert_raise Rest::HttpError do
+      cache.put(k, 0, :add => true, :expires_in => udq_expires)
+    end
     p r
     r = cache.increment(k)
     p r
     assert_equal 2, r.value
-    cache.put(k, 0, :add => true, :expires_in => udq_expires)
+    assert_raise Rest::HttpError do
+      cache.put(k, 0, :add => true, :expires_in => udq_expires)
+    end
     r = cache.increment(k)
     p r
     assert_equal 3, r.value, "value is #{r.value}, expected 3"
