@@ -12,7 +12,7 @@ module IronCache
     def path(options={})
       path = "projects/#{@client.project_id}/caches"
       if options[:name]
-        path << "/#{CGI::escape(options[:name])}"
+        path << "/#{CGI::escape(options[:name]).gsub('+', '%20')}"
       end
       path
     end
