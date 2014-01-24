@@ -22,9 +22,15 @@ class TestBase < Test::Unit::TestCase
   def setup
     puts 'setup'
     # check multiple config locations
-    @config = UberConfig.load
-    puts "config=" + @config.inspect
-    @client = IronCache::Client.new(@config['iron'])
+    begin
+      @config = UberConfig.load
+      puts "config=" + @config.inspect
+      @client = IronCache::Client.new(@config['iron'])
+    rescue => ex
+      puts "UberConfig couldn't find file, trying normal Iron.io config..."
+      @client = IronCache::Client.new
+    end
+
     @client.logger.level = Logger::DEBUG
     @client.cache_name = 'iron_cache_ruby_tests'
 
