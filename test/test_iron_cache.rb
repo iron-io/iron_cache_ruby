@@ -165,6 +165,7 @@ class IronCacheTests < TestBase
 
   def test_size
     cache = @client.cache("test_size")
+    cache.clear
     num_items = 100
 
     num_items.times do |i|
