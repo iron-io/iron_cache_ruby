@@ -68,7 +68,6 @@ class IronCacheTests < TestBase
     p res
     assert_nil res
 
-
     # different cache names
     c = @client.cache("new_style")
     c.put(k, v)
@@ -77,8 +76,6 @@ class IronCacheTests < TestBase
     item.delete
     item = c.get(k)
     assert_nil item
-
-
   end
 
   def test_caches
@@ -99,7 +96,6 @@ class IronCacheTests < TestBase
     p cache
     assert cache.name
     #assert cache.size
-
   end
 
   def test_expiry
@@ -116,7 +112,17 @@ class IronCacheTests < TestBase
     sleep 11
     res = @client.items.get(k)
     assert_nil res
+  end
 
+  def test_cache_remove
+    cache_name = 'test_delete'
+    c = @client.cache(cache_name)
+    c.put('any', 'to-create-cache')
+    c.remove
+
+    assert_raise do
+      item = @client.caches.get(cache_name)
+    end
   end
 
   def test_incrementors
@@ -165,6 +171,7 @@ class IronCacheTests < TestBase
 
   def test_size
     cache = @client.cache("test_size")
+    cache.clear
     num_items = 100
 
     num_items.times do |i|
