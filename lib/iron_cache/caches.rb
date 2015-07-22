@@ -86,8 +86,9 @@ module IronCache
     def load_cache
       cache = @client.caches.get(:name => name)
       @client.logger.debug "GOT Q: " + cache.inspect
-
       @data = cache.raw
+
+      cache
     end
 
     def reload
