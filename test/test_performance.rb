@@ -12,7 +12,7 @@ class TestPerformance < TestBase
     assert_performance 10 do
       100.times do |i|
         res = @client.items.put("key", "value")
-        puts "putting message #{res.inspect}"
+        # puts "putting message #{res.inspect}"
       end
     end
   end

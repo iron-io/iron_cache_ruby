@@ -6,7 +6,7 @@ class QuickRun < TestBase
     super
   end
 
-  def test_basics
+  def test_quick
     cache_name = 'ironcache-gem-quick'
     cache = @client.cache(cache_name)
     p cache
@@ -38,4 +38,3 @@ class QuickRun < TestBase
 
 
 end
-

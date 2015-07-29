@@ -24,7 +24,7 @@ class TestBase < Test::Unit::TestCase
     # check multiple config locations
     begin
       @config = UberConfig.load
-      puts "config=" + @config.inspect
+      # puts "config=" + @config.inspect
       @client = IronCache::Client.new(@config['iron'])
     rescue => ex
       puts "UberConfig couldn't find file, trying normal Iron.io config..."
@@ -38,11 +38,11 @@ class TestBase < Test::Unit::TestCase
 
   def clear_cache(cache_name=nil)
     cache_name ||= @client.cache_name
-    puts "clearing cache #{cache_name}"
+    # puts "clearing cache #{cache_name}"
     cache = @client.cache(cache_name)
     begin
       cache.clear
-      puts 'cleared.'
+      # puts 'cleared.'
     rescue Rest::HttpError => ex
       unless ex.code == 404
         raise ex

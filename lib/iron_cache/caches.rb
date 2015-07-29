@@ -85,7 +85,7 @@ module IronCache
     # Used if lazy loading
     def load_cache
       cache = @client.caches.get(:name => name)
-      @client.logger.debug "GOT Q: " + cache.inspect
+      # @client.logger.debug "GOT Q: " + cache.inspect
       @data = cache.raw
 
       cache
@@ -137,4 +137,3 @@ module IronCache
   end
 
 end
-
