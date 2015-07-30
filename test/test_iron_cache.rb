@@ -1,5 +1,6 @@
 require 'test/unit'
 require 'yaml'
+require 'securerandom'
 require File.expand_path('test_base.rb', File.dirname(__FILE__))
 
 class IronCacheTests < TestBase
@@ -212,5 +213,57 @@ class IronCacheTests < TestBase
     assert_equal 3, r.value, "value is #{r.value}, expected 3"
   end
 
+  def random_string(length)
+    # SecureRandom.hex generates string of <len * 2>
+    SecureRandom.hex(length/2)
+  end
 
+  def test_clear_delete_huge_cache
+    # it creates number of cache items with big string keys and tries
+    # to clear and to delete it. It is possible, that GCD backend will
+    # fail due to overlimit in transaction.
+    cache = @client.cache('test_clear_delete')
+    assert_nothing_raised do
+      clear_cache(cache.name)
+    end
+
+    item_value = 'we do not care about it in this test'
+    transaction_limit = 1024 * 1024 # 1Mb
+    icache_key_len_limit = 250 # symbols
+    # Number of items to put to cache.
+    # Sum of their keys' sizes must reach transaction limit.
+    num_items = transaction_limit / icache_key_len_limit + 1
+    cache_keys = num_items.times.map do
+      k = random_string(icache_key_len_limit)
+      cache.put(k, item_value)
+
+      k
+    end
+    assert_equal item_value, cache.get(cache_keys.first).value
+    assert_equal item_value, cache.get(cache_keys.last).value
+
+    cache.reload
+    assert_equal cache_keys.size, cache.size
+
+    assert_nothing_raised do
+      cache.clear
+    end
+    assert_nil cache.get(cache_keys.first)
+    assert_nil cache.get(cache_keys.last)
+    assert_equal 0, cache.reload.size
+
+    cache_keys.each { |k| cache.put(k, item_value) }
+    assert_equal item_value, cache.get(cache_keys.first).value
+    assert_equal item_value, cache.get(cache_keys.last).value
+
+    cache.reload
+    assert_equal cache_keys.size, cache.size
+
+    assert_nothing_raised do
+      cache.remove
+    end
+    assert_raise do
+      @client.caches.get(cache.name)
+    end
+  end
 end
